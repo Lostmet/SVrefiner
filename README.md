@@ -17,7 +17,7 @@ conda create -n SVrefiner python=3.8
 conda activate SVrefiner
 
 # Clone and install SVrefiner
-git clone https://github.com/StellaXiaoxuanXia/SVrefiner.git
+git clone https://github.com/Lostmet/SVrefiner.git
 cd SVrefiner
 pip install .
 
