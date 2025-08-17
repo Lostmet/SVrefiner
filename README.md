@@ -3,8 +3,8 @@
 
 **SVrefiner** is a Python-based tool for processing structural variants (SVs) and generating refined SVs (rSVs) in VCF v4.2 format.
 It integrates sequence alignment, window scanning, and merging workflows to resolve overlapping SVs, with a focus on `DEL` (deletions) and `INS` (insertions).
-`INV` (inversions) are not processed in the current version to improve efficiency, as their occurrence in real datasets is negligible (e.g., only **0.32%** in the tomato pangenome; Zhou *et al.*, *Nature*, 2022, 606: 527–534).
-
+Complex SVs (ref* and alt* differ at the first base, or both ref and alt are longer than 1 bp) are not processed in the current version to improve efficiency, as their occurrence in real datasets is negligible (e.g., only **2.2%** in the tomato pangenome; Zhou *et al.*, *Nature*, 2022, 606: 527–534).
+> ref: reference allele, alt: alternative allele
 ---
 
 ## Quick Start
