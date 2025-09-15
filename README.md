@@ -87,6 +87,16 @@ conda install conda-forge::mafft
 | `make-rsv`    | Define refined SVs from aligned sequences and output `rSV.vcf`          |
 | `run-all`     | Execute the complete pipeline                                           |
 
+## Options
+| Option           | Description                                                                         |
+| ---------------- | ----------------------------------------------------------------------------------- |
+| `--vcf`          | **Required.** Input VCF file (`.vcf.gz`; index `.csi` or `.tbi` required).          |
+| `--ref`          | **Required.** Input reference FASTA file (`.fasta` or `.fa`).                       |
+| `--out`          | **Required.** Output directory.                                                     |
+| `--threads`      | *Optional.* Number of threads to use (default: `10`).                               |
+| `--write-matrix` | *Optional.* `YES`/`NO` (default: `NO`). Whether to output **X** and **T** matrices. |
+
+
 ### Example Workflow
 
 #### Step 1: Process VCF
