@@ -1,0 +1,1 @@
+"""A Python tool for generating refined Structured Variants."""
