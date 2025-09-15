@@ -1,1 +1,0 @@
-"""Sequence alignment using MAFFT."""
