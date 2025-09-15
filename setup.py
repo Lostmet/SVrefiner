@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="SVrefiner",
-    version="0.1.0",
+    version="0.2",
     packages=find_packages(),
     install_requires=[
         "pandas>=1.3.0",
@@ -23,7 +23,7 @@ setup(
     description="A Python tool for refined Structural Variants (rSVs)",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
-    url="https://github.com/StellaXiaoxuanXia/SVrefiner",
+    url="https://github.com/Lostmet/SVrefiner",
     classifiers=[
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
