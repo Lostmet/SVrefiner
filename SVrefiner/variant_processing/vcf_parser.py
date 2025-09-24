@@ -89,6 +89,44 @@ def process_variants(config) -> List[VariantGroup]:
                         alt=list(record.alts)
                     )
                     inv_group.append(inv) 
+
+                elif list(record.alts) == ['<DEL>']:
+                    with pysam.FastaFile(config.ref_fasta) as fa:
+                        # REF: POS 到 END 的序列
+                        ref_seq = fa.fetch(record.chrom, record.pos - 1, record.stop).upper()
+
+                        # ALT: POS 上的碱基
+                        alt_base = fa.fetch(record.chrom, record.pos - 1, record.pos).upper()
+
+                    variant = Variant(
+                        chrom=record.chrom,
+                        start=record.pos,
+                        end=record.stop,
+                        ref=ref_seq,
+                        alt=[alt_base]
+                    )
+
+                    var_bp = abs(len(variant.ref) - len(variant.alt[0]))
+                    var_bp_max = max(var_bp_max, var_bp)
+                    var_bp_all += var_bp
+                    all_variants.append(variant)
+
+                elif list(record.alts) == ['<INS>']:
+                    alt_left=record.info.get("LEFT_SVINSSEQ", "N")[0]
+                    alt_right=record.info.get("RIGHT_SVINSSEQ", "N")[0]
+
+                    variant = Variant(
+                        chrom=record.chrom,
+                        start=record.pos,
+                        end=record.pos,
+                        ref=record.ref,
+                        alt=[alt_left+alt_right,]
+                    )
+                    var_bp = abs(len(variant.ref)-len(variant.alt[0]))
+                    var_bp_max = max(var_bp_max, var_bp)
+                    var_bp_all += var_bp
+                    all_variants.append(variant)
+
                 else:
                     if_snp = False
                     if_not_aligned = False
@@ -387,5 +425,16 @@ def make_oSV(config, multi_group):
                                 vcf_line = str(rec).strip()
                                 f_out.write(vcf_line + '\n')
                                 break
-
+                            elif rec.pos == pos and rec.alts[0] == "<DEL>":
+                                vcf_line = str(rec).strip()
+                                f_out.write(vcf_line + '\n')
+                                break
+                            elif rec.pos == pos and rec.alts[0] == "<INS>":
+                                alt_left=rec.info.get("LEFT_SVINSSEQ", "N")[0]
+                                alt_right=rec.info.get("RIGHT_SVINSSEQ", "N")[0]
+                                alt_rec=alt_left+alt_right
+                                if alt_rec == alt:
+                                    vcf_line = str(rec).strip()
+                                    f_out.write(vcf_line + '\n')  
+                                    break
         logger.info(f"Overlapping SVs(oSVs) saved at {output_vcf}")    
